@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Practice Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 30px 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #00acc1;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #00838f;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .student-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #e0f7fa;
+            border-radius: 5px;
+        }
+        
+        .info-field {
+            flex: 1;
+        }
+        
+        .info-field label {
+            font-weight: bold;
+            color: #00838f;
+        }
+        
+        .info-field input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 2px solid #b2ebf2;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #00acc1;
+            border-radius: 5px;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #00838f;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .sub-question {
+            margin: 10px 0 10px 20px;
+        }
+        
+        .answer-space {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px dashed #00acc1;
+            background: white;
+            min-height: 50px;
+            border-radius: 3px;
+        }
+        
+        .answer-space.large {
+            min-height: 100px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        table th, table td {
+            border: 2px solid #00acc1;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        table th {
+            background: #00acc1;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .instructions {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .instructions h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+        
+        .fraction-numerator {
+            display: block;
+            border-bottom: 1px solid #333;
+            padding-bottom: 2px;
+        }
+        
+        .fraction-denominator {
+            display: block;
+            padding-top: 2px;
+        }
+        
+        .buttons {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn-print {
+            background: #00acc1;
+            color: white;
+        }
+        
+        .btn-print:hover {
+            background: #00838f;
+        }
+        
+        .btn-reset {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .btn-reset:hover {
+            background: #f57c00;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .buttons {
+                display: none;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 Mathematics Practice Test</h1>
+            <p>Chapter 4: Fractions | Chapter 6: Decimals and Percentages</p>
+        </div>
+        
+        <div class="student-info">
+            <div class="info-field">
+                <label>Student Name:</label>
+                <input type="text" id="studentName" placeholder="Enter your name">
+            </div>
+            <div class="info-field">
+                <label>Class:</label>
+                <input type="text" id="studentClass" placeholder="Enter your class">
+            </div>
+            <div class="info-field">
+                <label>Date:</label>
+                <input type="date" id="testDate">
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            <ul>
+                <li>Show all your working out</li>
+                <li>Answer all questions</li>
+                <li>Write your answers clearly in the spaces provided</li>
+                <li>Simplify fractions where possible</li>
+            </ul>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">Change the mixed numbers into improper fractions:</div>
+            
+            <div class="sub-question">
+                a) 2 <span class="fraction"><span class="fraction-numerator">6</span><span class="fraction-denominator">7</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                b) 3 <span class="fraction"><span class="fraction-numerator">2</span><span class="fraction-denominator">5</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                c) 7 <span class="fraction"><span class="fraction-numerator">3</span><span class="fraction-denominator">8</span></span> =
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-number">Question 2</div>
+            <div class="question-text">Complete the table:</div>
+            <table>
+                <tr>
+                    <th>Fraction</th>
+                    <th><span class="fraction"><span class="fraction-numerator">4</span><span class="fraction-denominator">25</span></span></th>
+                    <th></th>
+                    <th><span class="fraction"><span class="fraction-numerator">7</span><span class="fraction-denominator">20</span></span></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Decimal</th>
+                    <td></td>
+                    <td>0.65</td>
+                    <td></td>
+                    <td>0.95</td>
+                </tr>
+                <tr>
+                    <th>Percentage</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                <strong>Hint:</strong> Fill in ALL the missing cells (fractions, decimals, and percentages)
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-number">Question 3</div>
+            <div class="question-text">Work out the area and the perimeter of a square with length 3 <span class="fraction"><span class="fraction-numerator">3</span><span class="fraction-denominator">7</span></span> m.</div>
+            <div class="answer-space large"></div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-number">Question 4</div>
+            <div class="question-text">Work out:</div>
+            
+            <div class="sub-question">
+                a) 2 <span class="fraction"><span class="fraction-numerator">3</span><span class="fraction-denominator">8</span></span> − 1 <span class="fraction"><span class="fraction-numerator">1</span><span class="fraction-denominator">4</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                b) 3 <span class="fraction"><span class="fraction-numerator">5</span><span class="fraction-denominator">6</span></span> + 1 <span class="fraction"><span class="fraction-numerator">1</span><span class="fraction-denominator">4</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                c) 5 <span class="fraction"><span class="fraction-numerator">2</span><span class="fraction-denominator">15</span></span> + 6 <span class="fraction"><span class="fraction-numerator">1</span><span class="fraction-denominator">5</span></span> − 3 <span class="fraction"><span class="fraction-numerator">2</span><span class="fraction-denominator">3</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                d) 2 <span class="fraction"><span class="fraction-numerator">2</span><span class="fraction-denominator">3</span></span> + 1 <span class="fraction"><span class="fraction-numerator">1</span><span class="fraction-denominator">6</span></span> × 2 <span class="fraction"><span class="fraction-numerator">4</span><span class="fraction-denominator">7</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                e) <span class="fraction"><span class="fraction-numerator">6</span><span class="fraction-denominator">7</span></span> × <span class="fraction"><span class="fraction-numerator">28</span><span class="fraction-denominator">36</span></span> =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                f) 27 × 4 <span class="fraction"><span class="fraction-numerator">2</span><span class="fraction-denominator">9</span></span> =
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <div class="question-number">Question 5</div>
+            <div class="question-text">Round each number as specified in the brackets:</div>
+            
+            <div class="sub-question">
+                a) 4.8 (nearest whole number) =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                b) 10.63 (1 decimal place) =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                c) 48.18 (1 decimal place) =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                d) 637.5 (nearest whole number) =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                e) 248.32 (1 decimal place) =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                f) 689.9 (nearest whole number) =
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question">
+            <div class="question-number">Question 6</div>
+            <div class="question-text">Place the decimals in descending order:</div>
+            <div style="margin: 15px 0; font-size: 1.1em; text-align: center; padding: 10px; background: white; border-radius: 5px;">
+                -1.63 &nbsp;&nbsp; 4.2 &nbsp;&nbsp; 0.42 &nbsp;&nbsp; 0.024 &nbsp;&nbsp; 0.93 &nbsp;&nbsp; 0.039 &nbsp;&nbsp; -1.063
+            </div>
+            <div class="answer-space"></div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question">
+            <div class="question-number">Question 7</div>
+            <div class="question-text">
+                Lucy cuts 8 metres of rope into three pieces. The first piece of rope is 2.7 metres. 
+                The second piece of rope is 0.9 metres. Work out the length of the third piece of rope.
+            </div>
+            <div class="answer-space large"></div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question">
+            <div class="question-number">Question 8</div>
+            <div class="question-text">Work out:</div>
+            
+            <div class="sub-question">
+                a) 8.77 + 3.81 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                b) 9.2 − 0.45 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                c) 0.3 × 0.3 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                d) 0.06 × 0.4 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                e) 1.9 × 1.2 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                f) 5.18 ÷ 7 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                g) 1.644 ÷ 3 =
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question">
+            <div class="question-number">Question 9</div>
+            <div class="question-text">
+                There are 220 students in Year 6 at a school. 15% cycle to school. 60% are driven to school. 
+                The rest walk to school.
+            </div>
+            
+            <div class="sub-question">
+                a) How many students cycle to school?
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                b) How many students are driven to school?
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                c) How many students walk to school?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question">
+            <div class="question-number">Question 10</div>
+            <div class="question-text">Use the fact that 3.6 × 1.5 = 5.4 to answer the following:</div>
+            
+            <div class="sub-question">
+                a) 36 × 1.5 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                b) 0.36 × 1.5 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                c) 3.6 × 0.015 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                d) 5.4 ÷ 1.5 =
+                <div class="answer-space"></div>
+            </div>
+            
+            <div class="sub-question">
+                e) 5.4 ÷ 3.6 =
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question">
+            <div class="question-number">Question 11</div>
+            <div class="question-text">Given that:</div>
+            <div style="margin: 15px 0 15px 20px; font-size: 1.1em;">
+                20% of 95 = 19<br>
+                1% of 95 = 0.95
+            </div>
+            <div class="question-text">Calculate 58% of 95.</div>
+            <div class="answer-space large"></div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-print" onclick="window.print()">🖨️ Print Test</button>
+            <button class="btn-reset" onclick="location.reload()">🔄 Reset</button>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date
+        document.getElementById('testDate').valueAsDate = new Date();
+    </script>
+</body>
+</html>
