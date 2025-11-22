@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 1 Maths Practice Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #312e81;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6366f1;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .instructions {
+            background: #eef2ff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .instructions h3 {
+            color: #312e81;
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions p {
+            color: #4338ca;
+            line-height: 1.6;
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 2px solid #e0e7ff;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .question-container:hover {
+            border-color: #c7d2fe;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+        }
+
+        .question-container.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            background: #4f46e5;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.875rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .question-type {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            border-color: #4f46e5;
+            background-color: #faf5ff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.75rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .submit-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: #4f46e5;
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .results h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .results-details {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .results-stat {
+            text-align: center;
+        }
+
+        .results-stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .results-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .retry-btn {
+            background: white;
+            color: #4f46e5;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .retry-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 0.25rem;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        .explanation strong {
+            color: #92400e;
+        }
+
+        .explanation-text {
+            color: #78350f;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Year 1 Maths Practice Test</h1>
+        <p class="subtitle">Triangles & Angles - 40 Questions</p>
+
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <p>Answer all 40 questions below. The test includes True/False and Multiple Choice questions. Once you've completed all questions, click the "Submit Test" button to see your results.</p>
+        </div>
+
+        <form id="test-form">
+            <!-- Questions will be inserted here by JavaScript -->
+        </form>
+
+        <div class="submit-section">
+            <button type="button" class="submit-btn" onclick="submitTest()">Submit Test</button>
+        </div>
+
+        <div class="results" id="results">
+            <h2>Test Results</h2>
+            <div class="score" id="score"></div>
+            <div class="results-details">
+                <div class="results-stat">
+                    <div class="results-stat-number" id="correct-count"></div>
+                    <div class="results-stat-label">Correct</div>
+                </div>
+                <div class="results-stat">
+                    <div class="results-stat-number" id="incorrect-count"></div>
+                    <div class="results-stat-label">Incorrect</div>
+                </div>
+                <div class="results-stat">
+                    <div class="results-stat-number" id="percentage"></div>
+                    <div class="results-stat-label">Percentage</div>
+                </div>
+            </div>
+            <button class="retry-btn" onclick="retryTest()">Retry Test</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // True/False Questions
+            { type: "T/F", question: "An equilateral triangle has all three sides equal.", answer: "True", explanation: "By definition, an equilateral triangle has all three sides of equal length." },
+            { type: "T/F", question: "The sum of angles in a triangle is 360 degrees.", answer: "False", explanation: "The sum of angles in any triangle is always 180 degrees, not 360." },
+            { type: "T/F", question: "An isosceles triangle has two sides of equal length.", answer: "True", explanation: "An isosceles triangle is defined as having exactly two sides of equal length." },
+            { type: "T/F", question: "A right angle measures 180 degrees.", answer: "False", explanation: "A right angle measures exactly 90 degrees. 180 degrees is a straight angle." },
+            { type: "T/F", question: "Complementary angles add up to 90 degrees.", answer: "True", explanation: "By definition, two angles that sum to 90 degrees are complementary." },
+            { type: "T/F", question: "A scalene triangle has all sides of different lengths.", answer: "True", explanation: "A scalene triangle is characterized by having no equal sides." },
+            { type: "T/F", question: "An obtuse angle is less than 90 degrees.", answer: "False", explanation: "An obtuse angle measures more than 90 degrees but less than 180 degrees." },
+            { type: "T/F", question: "Supplementary angles add up to 180 degrees.", answer: "True", explanation: "Two angles that sum to 180 degrees are called supplementary angles." },
+            { type: "T/F", question: "An acute triangle has one angle greater than 90 degrees.", answer: "False", explanation: "An acute triangle has all three angles less than 90 degrees." },
+            { type: "T/F", question: "Vertically opposite angles are always equal.", answer: "True", explanation: "When two lines intersect, the angles opposite each other are always equal." },
+            { type: "T/F", question: "A reflex angle is less than 180 degrees.", answer: "False", explanation: "A reflex angle measures more than 180 degrees but less than 360 degrees." },
+            { type: "T/F", question: "All angles in an equilateral triangle are 60 degrees.", answer: "True", explanation: "Since all sides are equal, all angles are equal, and 180÷3 = 60 degrees." },
+            { type: "T/F", question: "Angles around a point add up to 180 degrees.", answer: "False", explanation: "Angles around a point add up to 360 degrees, not 180." },
+            { type: "T/F", question: "A right-angled triangle has one angle equal to 90 degrees.", answer: "True", explanation: "By definition, a right-angled triangle contains exactly one 90-degree angle." },
+            { type: "T/F", question: "An obtuse triangle can have two obtuse angles.", answer: "False", explanation: "Since angles sum to 180°, having two obtuse angles (>90°) would exceed 180°." },
+
+            // Multiple Choice Questions
+            { 
+                type: "MC", 
+                question: "How many degrees are in a straight angle?", 
+                options: ["90°", "180°", "270°", "360°"], 
+                answer: "180°",
+                explanation: "A straight angle forms a straight line and measures exactly 180 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "What type of triangle has no equal sides?", 
+                options: ["Equilateral", "Isosceles", "Scalene", "Right"], 
+                answer: "Scalene",
+                explanation: "A scalene triangle is defined as having all three sides of different lengths."
+            },
+            { 
+                type: "MC", 
+                question: "What is an angle less than 90 degrees called?", 
+                options: ["Obtuse", "Acute", "Right", "Reflex"], 
+                answer: "Acute",
+                explanation: "An acute angle is any angle measuring less than 90 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "In a triangle, if two angles are 60° and 80°, what is the third angle?", 
+                options: ["30°", "40°", "50°", "60°"], 
+                answer: "40°",
+                explanation: "Angles in a triangle sum to 180°. So 180° - 60° - 80° = 40°."
+            },
+            { 
+                type: "MC", 
+                question: "What type of angle measures exactly 90 degrees?", 
+                options: ["Acute", "Obtuse", "Right", "Straight"], 
+                answer: "Right",
+                explanation: "A right angle is defined as measuring exactly 90 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "If two angles are complementary and one is 35°, what is the other?", 
+                options: ["35°", "45°", "55°", "65°"], 
+                answer: "55°",
+                explanation: "Complementary angles sum to 90°. So 90° - 35° = 55°."
+            },
+            { 
+                type: "MC", 
+                question: "What is a triangle with all three sides equal called?", 
+                options: ["Scalene", "Isosceles", "Equilateral", "Right"], 
+                answer: "Equilateral",
+                explanation: "An equilateral triangle has all three sides of equal length."
+            },
+            { 
+                type: "MC", 
+                question: "How many degrees do angles on a straight line add up to?", 
+                options: ["90°", "180°", "270°", "360°"], 
+                answer: "180°",
+                explanation: "Angles that lie on a straight line always sum to 180 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "What type of triangle has one angle greater than 90 degrees?", 
+                options: ["Acute", "Right", "Obtuse", "Equilateral"], 
+                answer: "Obtuse",
+                explanation: "An obtuse triangle is defined as having one angle greater than 90 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "If two supplementary angles are equal, what is each angle?", 
+                options: ["45°", "60°", "90°", "120°"], 
+                answer: "90°",
+                explanation: "Supplementary angles sum to 180°. If equal, each is 180° ÷ 2 = 90°."
+            },
+            { 
+                type: "MC", 
+                question: "What do angles around a point add up to?", 
+                options: ["90°", "180°", "270°", "360°"], 
+                answer: "360°",
+                explanation: "Angles that meet at a point always sum to 360 degrees (a full rotation)."
+            },
+            { 
+                type: "MC", 
+                question: "A triangle with two equal sides is called:", 
+                options: ["Scalene", "Isosceles", "Equilateral", "Obtuse"], 
+                answer: "Isosceles",
+                explanation: "An isosceles triangle is characterized by having exactly two equal sides."
+            },
+            { 
+                type: "MC", 
+                question: "What type of angle is greater than 180° but less than 360°?", 
+                options: ["Acute", "Obtuse", "Straight", "Reflex"], 
+                answer: "Reflex",
+                explanation: "A reflex angle measures more than 180 degrees but less than 360 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "In an isosceles triangle with angles 70°, 70°, what is the third angle?", 
+                options: ["20°", "30°", "40°", "50°"], 
+                answer: "40°",
+                explanation: "Angles sum to 180°. So 180° - 70° - 70° = 40°."
+            },
+            { 
+                type: "MC", 
+                question: "What is an angle between 90° and 180° called?", 
+                options: ["Acute", "Right", "Obtuse", "Reflex"], 
+                answer: "Obtuse",
+                explanation: "An obtuse angle is defined as measuring more than 90° but less than 180°."
+            },
+            { 
+                type: "MC", 
+                question: "If an angle is 110°, what type of angle is it?", 
+                options: ["Acute", "Right", "Obtuse", "Straight"], 
+                answer: "Obtuse",
+                explanation: "Since 110° is greater than 90° but less than 180°, it's an obtuse angle."
+            },
+            { 
+                type: "MC", 
+                question: "How many equal angles does an equilateral triangle have?", 
+                options: ["0", "1", "2", "3"], 
+                answer: "3",
+                explanation: "An equilateral triangle has all three sides equal, so all three angles are equal."
+            },
+            { 
+                type: "MC", 
+                question: "If two angles are 130° and 50°, are they supplementary?", 
+                options: ["Yes", "No", "Maybe", "Cannot determine"], 
+                answer: "Yes",
+                explanation: "130° + 50° = 180°, so they are supplementary angles."
+            },
+            { 
+                type: "MC", 
+                question: "A triangle with all angles less than 90° is called:", 
+                options: ["Acute", "Right", "Obtuse", "Scalene"], 
+                answer: "Acute",
+                explanation: "An acute triangle is defined as having all three angles less than 90 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "What is the sum of two complementary angles?", 
+                options: ["45°", "90°", "180°", "360°"], 
+                answer: "90°",
+                explanation: "By definition, complementary angles always sum to 90 degrees."
+            },
+            { 
+                type: "MC", 
+                question: "In a right triangle, if one angle is 35°, what is the other non-right angle?", 
+                options: ["45°", "55°", "65°", "75°"], 
+                answer: "55°",
+                explanation: "180° - 90° (right angle) - 35° = 55°."
+            },
+            { 
+                type: "MC", 
+                question: "Two angles that add up to 180° are called:", 
+                options: ["Complementary", "Supplementary", "Vertically opposite", "Adjacent"], 
+                answer: "Supplementary",
+                explanation: "Angles that sum to 180 degrees are defined as supplementary angles."
+            },
+            { 
+                type: "MC", 
+                question: "What is an angle of 75° classified as?", 
+                options: ["Acute", "Right", "Obtuse", "Reflex"], 
+                answer: "Acute",
+                explanation: "Since 75° is less than 90°, it's an acute angle."
+            },
+            { 
+                type: "MC", 
+                question: "If a triangle has sides 5cm, 5cm, and 7cm, what type is it?", 
+                options: ["Equilateral", "Isosceles", "Scalene", "Cannot determine"], 
+                answer: "Isosceles",
+                explanation: "Two sides are equal (5cm each), so it's an isosceles triangle."
+            },
+            { 
+                type: "MC", 
+                question: "What do we call angles that are opposite each other when two lines cross?", 
+                options: ["Complementary", "Supplementary", "Vertically opposite", "Adjacent"], 
+                answer: "Vertically opposite",
+                explanation: "When two lines intersect, the opposite angles are called vertically opposite angles."
+            }
+        ];
+
+        function renderQuestions() {
+            const form = document.getElementById('test-form');
+            let html = '';
+
+            questions.forEach((q, index) => {
+                html += `
+                    <div class="question-container" id="q${index}">
+                        <div class="question-header">
+                            <div class="question-number">${index + 1}</div>
+                            <span class="question-type">${q.type}</span>
+                        </div>
+                        <div class="question-text">${q.question}</div>
+                        <div class="options">
+                `;
+
+                if (q.type === "T/F") {
+                    html += `
+                        <div class="option">
+                            <input type="radio" id="q${index}_true" name="q${index}" value="True">
+                            <label for="q${index}_true">True</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${index}_false" name="q${index}" value="False">
+                            <label for="q${index}_false">False</label>
+                        </div>
+                    `;
+                } else {
+                    q.options.forEach((option, optIndex) => {
+                        html += `
+                            <div class="option">
+                                <input type="radio" id="q${index}_opt${optIndex}" name="q${index}" value="${option}">
+                                <label for="q${index}_opt${optIndex}">${option}</label>
+                            </div>
+                        `;
+                    });
+                }
+
+                html += `
+                        </div>
+                        <div class="explanation" id="exp${index}">
+                            <strong>Explanation:</strong>
+                            <div class="explanation-text">${q.explanation}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            form.innerHTML = html;
+        }
+
+        function submitTest() {
+            let correct = 0;
+            let incorrect = 0;
+
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const container = document.getElementById(`q${index}`);
+                const explanation = document.getElementById(`exp${index}`);
+
+                if (selected) {
+                    if (selected.value === q.answer) {
+                        correct++;
+                        container.classList.add('correct');
+                        container.classList.remove('incorrect');
+                    } else {
+                        incorrect++;
+                        container.classList.add('incorrect');
+                        container.classList.remove('correct');
+                    }
+                    explanation.classList.add('show');
+                } else {
+                    incorrect++;
+                    container.classList.add('incorrect');
+                }
+            });
+
+            const percentage = Math.round((correct / questions.length) * 100);
+
+            document.getElementById('correct-count').textContent = correct;
+            document.getElementById('incorrect-count').textContent = incorrect;
+            document.getElementById('percentage').textContent = percentage + '%';
+            document.getElementById('score').textContent = `${correct} / ${questions.length}`;
+            document.getElementById('results').classList.add('show');
+
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function retryTest() {
+            // Clear all selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+
+            // Remove all highlighting
+            document.querySelectorAll('.question-container').forEach(container => {
+                container.classList.remove('correct', 'incorrect');
+            });
+
+            // Hide all explanations
+            document.querySelectorAll('.explanation').forEach(exp => {
+                exp.classList.remove('show');
+            });
+
+            // Hide results
+            document.getElementById('results').classList.remove('show');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuestions();
+    </script>
+</body>
+</html>
