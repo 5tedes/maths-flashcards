@@ -1,163 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Maths Test</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 20px; max-width: 900px; }
-  .question { margin-bottom: 25px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
-  .correct { color: green; font-weight: bold; }
-  .incorrect { color: red; font-weight: bold; }
-  button { margin-top: 10px; padding: 8px 14px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 1 High School Maths Practice Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+        }
+        .gradient-button {
+            background: linear-gradient(90deg, #4f46e5 0%, #9333ea 100%);
+        }
+        .gradient-button:hover {
+            background: linear-gradient(90deg, #4338ca 0%, #7e22ce 100%);
+        }
+        .gradient-result {
+            background: linear-gradient(90deg, #6366f1 0%, #9333ea 100%);
+        }
+    </style>
 </head>
-<body>
+<body class="gradient-bg min-h-screen p-4 md:p-8">
+    <div id="app" class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-6 md:p-10">
+        <!-- Content will be injected by JavaScript -->
+    </div>
 
-<h1>Maths Test</h1>
-<div id="quiz"></div>
+    <script>
+        const questions = [
+            // FRACTIONS (Questions 1-20)
+            { id: 1, question: "1/4 + 2/4 = ?", options: ["1/2", "3/4", "1/8", "3/8"], answer: "3/4", topic: "Fractions" },
+            { id: 2, question: "3/5 + 1/5 = ?", options: ["4/5", "4/10", "2/5", "3/5"], answer: "4/5", topic: "Fractions" },
+            { id: 3, question: "5/6 - 2/6 = ?", options: ["3/6", "1/3", "2/3", "3/12"], answer: "3/6", topic: "Fractions" },
+            { id: 4, question: "7/8 - 3/8 = ?", options: ["4/8", "3/8", "1/4", "4/16"], answer: "4/8", topic: "Fractions" },
+            { id: 5, question: "1/3 + 1/6 = ?", options: ["2/9", "1/2", "2/6", "1/9"], answer: "1/2", topic: "Fractions" },
+            { id: 6, question: "2/3 + 1/6 = ?", options: ["3/9", "5/6", "1/2", "3/6"], answer: "5/6", topic: "Fractions" },
+            { id: 7, question: "5/6 - 1/3 = ?", options: ["4/3", "1/2", "2/3", "4/6"], answer: "1/2", topic: "Fractions" },
+            { id: 8, question: "3/4 - 1/2 = ?", options: ["1/4", "1/2", "2/4", "1/8"], answer: "1/4", topic: "Fractions" },
+            { id: 9, question: "2/3 × 3/4 = ?", options: ["1/2", "5/7", "6/12", "2/7"], answer: "1/2", topic: "Fractions" },
+            { id: 10, question: "1/2 × 2/5 = ?", options: ["1/5", "3/7", "2/10", "3/10"], answer: "1/5", topic: "Fractions" },
+            { id: 11, question: "3/5 × 5/6 = ?", options: ["1/2", "15/30", "3/11", "8/11"], answer: "1/2", topic: "Fractions" },
+            { id: 12, question: "Convert 2 1/4 to an improper fraction", options: ["9/4", "8/4", "7/4", "10/4"], answer: "9/4", topic: "Fractions" },
+            { id: 13, question: "Convert 3 2/5 to an improper fraction", options: ["15/5", "17/5", "13/5", "16/5"], answer: "17/5", topic: "Fractions" },
+            { id: 14, question: "Convert 1 3/4 to an improper fraction", options: ["7/4", "5/4", "6/4", "8/4"], answer: "7/4", topic: "Fractions" },
+            { id: 15, question: "Convert 11/3 to a mixed number", options: ["3 2/3", "2 5/3", "3 1/3", "4 1/3"], answer: "3 2/3", topic: "Fractions" },
+            { id: 16, question: "Convert 13/4 to a mixed number", options: ["3 1/4", "2 5/4", "4 1/4", "3 2/4"], answer: "3 1/4", topic: "Fractions" },
+            { id: 17, question: "1/4 × 4/5 = ?", options: ["1/5", "5/20", "4/9", "4/20"], answer: "1/5", topic: "Fractions" },
+            { id: 18, question: "2/7 × 7/8 = ?", options: ["1/4", "14/56", "2/8", "9/15"], answer: "1/4", topic: "Fractions" },
+            { id: 19, question: "5/8 + 1/4 = ?", options: ["6/12", "7/8", "6/8", "3/4"], answer: "7/8", topic: "Fractions" },
+            { id: 20, question: "7/10 - 2/5 = ?", options: ["5/5", "3/10", "1/2", "5/10"], answer: "3/10", topic: "Fractions" },
 
-<button onclick="checkAnswers()">Check Answers</button>
-<button onclick="resetQuiz()">Reset</button>
+            // DECIMALS (Questions 21-40)
+            { id: 21, question: "3.5 + 2.3 = ?", options: ["5.8", "5.2", "6.8", "5.5"], answer: "5.8", topic: "Decimals" },
+            { id: 22, question: "7.6 + 1.9 = ?", options: ["8.5", "9.5", "8.15", "9.15"], answer: "9.5", topic: "Decimals" },
+            { id: 23, question: "5.4 - 2.1 = ?", options: ["3.3", "3.5", "7.5", "2.3"], answer: "3.3", topic: "Decimals" },
+            { id: 24, question: "8.7 - 3.4 = ?", options: ["5.3", "4.3", "5.7", "12.1"], answer: "5.3", topic: "Decimals" },
+            { id: 25, question: "2.5 × 3 = ?", options: ["7.5", "6.5", "5.5", "8.5"], answer: "7.5", topic: "Decimals" },
+            { id: 26, question: "1.2 × 4 = ?", options: ["4.8", "5.2", "3.2", "4.2"], answer: "4.8", topic: "Decimals" },
+            { id: 27, question: "0.5 × 6 = ?", options: ["3", "3.5", "2.5", "3.6"], answer: "3", topic: "Decimals" },
+            { id: 28, question: "6.4 ÷ 2 = ?", options: ["3.2", "4.2", "2.2", "3.4"], answer: "3.2", topic: "Decimals" },
+            { id: 29, question: "8.1 ÷ 3 = ?", options: ["2.7", "2.3", "3.7", "2.1"], answer: "2.7", topic: "Decimals" },
+            { id: 30, question: "Round 3.678 to 1 decimal place", options: ["3.7", "3.6", "4.0", "3.68"], answer: "3.7", topic: "Decimals" },
+            { id: 31, question: "Round 5.432 to 1 decimal place", options: ["5.4", "5.5", "5.43", "6.0"], answer: "5.4", topic: "Decimals" },
+            { id: 32, question: "Round 7.856 to 2 decimal places", options: ["7.86", "7.85", "7.9", "8.0"], answer: "7.86", topic: "Decimals" },
+            { id: 33, question: "Round 2.345 to 2 decimal places", options: ["2.35", "2.34", "2.3", "2.4"], answer: "2.35", topic: "Decimals" },
+            { id: 34, question: "12.5 ÷ 5 = ?", options: ["2.5", "3.5", "2.0", "3.0"], answer: "2.5", topic: "Decimals" },
+            { id: 35, question: "4.5 + 3.8 = ?", options: ["8.3", "7.3", "8.13", "7.13"], answer: "8.3", topic: "Decimals" },
+            { id: 36, question: "9.2 - 4.7 = ?", options: ["4.5", "5.5", "3.5", "4.7"], answer: "4.5", topic: "Decimals" },
+            { id: 37, question: "3.6 × 2 = ?", options: ["7.2", "6.2", "7.12", "5.6"], answer: "7.2", topic: "Decimals" },
+            { id: 38, question: "15.6 ÷ 4 = ?", options: ["3.9", "4.9", "3.4", "4.4"], answer: "3.9", topic: "Decimals" },
+            { id: 39, question: "Round 6.549 to 1 decimal place", options: ["6.5", "6.6", "7.0", "6.55"], answer: "6.5", topic: "Decimals" },
+            { id: 40, question: "0.8 × 5 = ?", options: ["4", "4.5", "3.5", "5"], answer: "4", topic: "Decimals" },
 
-<script>
-const questions = [
-  { id: 1, question: "1/4 + 2/4 = ?", options: ["1/2", "3/4", "1/8", "3/8"], answer: "3/4" },
-  { id: 2, question: "3/5 + 1/5 = ?", options: ["4/5", "4/10", "2/5", "3/5"], answer: "4/5" },
-  { id: 3, question: "5/6 - 2/6 = ?", options: ["3/6", "1/3", "2/3", "3/12"], answer: "3/6" },
-  { id: 4, question: "7/8 - 3/8 = ?", options: ["4/8", "3/8", "1/4", "4/16"], answer: "4/8" },
-  { id: 5, question: "1/3 + 1/6 = ?", options: ["2/9", "1/2", "2/6", "1/9"], answer: "1/2" },
-  { id: 6, question: "2/3 + 1/6 = ?", options: ["3/9", "5/6", "1/2", "3/6"], answer: "5/6" },
-  { id: 7, question: "5/6 - 1/3 = ?", options: ["4/3", "1/2", "2/3", "4/6"], answer: "1/2" },
-  { id: 8, question: "3/4 - 1/2 = ?", options: ["1/4", "1/2", "2/4", "1/8"], answer: "1/4" },
-  { id: 9, question: "2/3 × 3/4 = ?", options: ["1/2", "5/7", "6/12", "2/7"], answer: "1/2" },
-  { id: 10, question: "1/2 × 2/5 = ?", options: ["1/5", "3/7", "2/10", "3/10"], answer: "1/5" },
-  { id: 11, question: "3/5 × 5/6 = ?", options: ["1/2", "15/30", "3/11", "8/11"], answer: "1/2" },
-  { id: 12, question: "Convert 2 1/4 to an improper fraction", options: ["9/4", "8/4", "7/4", "10/4"], answer: "9/4" },
-  { id: 13, question: "Convert 3 2/5 to an improper fraction", options: ["15/5", "17/5", "13/5", "16/5"], answer: "17/5" },
-  { id: 14, question: "Convert 1 3/4 to an improper fraction", options: ["7/4", "5/4", "6/4", "8/4"], answer: "7/4" },
-  { id: 15, question: "Convert 11/3 to a mixed number", options: ["3 2/3", "2 5/3", "3 1/3", "4 1/3"], answer: "3 2/3" },
-  { id: 16, question: "Convert 13/4 to a mixed number", options: ["3 1/4", "2 5/4", "4 1/4", "3 2/4"], answer: "3 1/4" },
-  { id: 17, question: "1/4 × 4/5 = ?", options: ["1/5", "5/20", "4/9", "4/20"], answer: "1/5" },
-  { id: 18, question: "2/7 × 7/8 = ?", options: ["1/4", "14/56", "2/8", "9/15"], answer: "1/4" },
-  { id: 19, question: "5/8 + 1/4 = ?", options: ["6/12", "7/8", "6/8", "3/4"], answer: "7/8" },
-  { id: 20, question: "7/10 - 2/5 = ?", options: ["5/5", "3/10", "1/2", "5/10"], answer: "3/10" },
-  
-  { id: 21, question: "3.5 + 2.3 = ?", options: ["5.8", "5.2", "6.8", "5.5"], answer: "5.8" },
-  { id: 22, question: "7.6 + 1.9 = ?", options: ["8.5", "9.5", "8.15", "9.15"], answer: "9.5" },
-  { id: 23, question: "5.4 - 2.1 = ?", options: ["3.3", "3.5", "7.5", "2.3"], answer: "3.3" },
-  { id: 24, question: "8.7 - 3.4 = ?", options: ["5.3", "4.3", "5.7", "12.1"], answer: "5.3" },
-  { id: 25, question: "2.5 × 3 = ?", options: ["7.5", "6.5", "5.5", "8.5"], answer: "7.5" },
-  { id: 26, question: "1.2 × 4 = ?", options: ["4.8", "5.2", "3.2", "4.2"], answer: "4.8" },
-  { id: 27, question: "0.5 × 6 = ?", options: ["3", "3.5", "2.5", "3.6"], answer: "3" },
-  { id: 28, question: "6.4 ÷ 2 = ?", options: ["3.2", "4.2", "2.2", "3.4"], answer: "3.2" },
-  { id: 29, question: "8.1 ÷ 3 = ?", options: ["2.7", "2.3", "3.7", "2.1"], answer: "2.7" },
-  { id: 30, question: "Round 3.678 to 1 decimal place", options: ["3.7", "3.6", "4.0", "3.68"], answer: "3.7" },
-  { id: 31, question: "Round 5.432 to 1 decimal place", options: ["5.4", "5.5", "5.43", "6.0"], answer: "5.4" },
-  { id: 32, question: "Round 7.856 to 2 decimal places", options: ["7.86", "7.85", "7.9", "8.0"], answer: "7.86" },
-  { id: 33, question: "Round 2.345 to 2 decimal places", options: ["2.35", "2.34", "2.3", "2.4"], answer: "2.35" },
-  { id: 34, question: "12.5 ÷ 5 = ?", options: ["2.5", "3.5", "2.0", "3.0"], answer: "2.5" },
-  { id: 35, question: "4.5 + 3.8 = ?", options: ["8.3", "7.3", "8.13", "7.13"], answer: "8.3" },
-  { id: 36, question: "9.2 - 4.7 = ?", options: ["4.5", "5.5", "3.5", "4.7"], answer: "4.5" },
-  { id: 37, question: "3.6 × 2 = ?", options: ["7.2", "6.2", "7.12", "5.6"], answer: "7.2" },
-  { id: 38, question: "15.6 ÷ 4 = ?", options: ["3.9", "4.9", "3.4", "4.4"], answer: "3.9" },
-  { id: 39, question: "Round 6.549 to 1 decimal place", options: ["6.5", "6.6", "7.0", "6.55"], answer: "6.5" },
-  { id: 40, question: "0.8 × 5 = ?", options: ["4", "4.5", "3.5", "5"], answer: "4" },
+            // PERCENTAGES (Questions 41-50)
+            { id: 41, question: "What is 50% of 80?", options: ["40", "30", "50", "45"], answer: "40", topic: "Percentages" },
+            { id: 42, question: "What is 25% of 100?", options: ["25", "20", "30", "15"], answer: "25", topic: "Percentages" },
+            { id: 43, question: "What is 10% of 50?", options: ["5", "10", "15", "50"], answer: "5", topic: "Percentages" },
+            { id: 44, question: "What is 75% of 60?", options: ["45", "40", "50", "35"], answer: "45", topic: "Percentages" },
+            { id: 45, question: "Convert 0.5 to a percentage", options: ["50%", "5%", "0.5%", "25%"], answer: "50%", topic: "Percentages" },
+            { id: 46, question: "Convert 0.25 to a percentage", options: ["25%", "2.5%", "250%", "0.25%"], answer: "25%", topic: "Percentages" },
+            { id: 47, question: "Convert 75% to a decimal", options: ["0.75", "7.5", "0.075", "75"], answer: "0.75", topic: "Percentages" },
+            { id: 48, question: "Convert 20% to a decimal", options: ["0.2", "2.0", "0.02", "20"], answer: "0.2", topic: "Percentages" },
+            { id: 49, question: "What is 30% of 90?", options: ["27", "30", "25", "33"], answer: "27", topic: "Percentages" },
+            { id: 50, question: "What is 5% of 200?", options: ["10", "5", "15", "20"], answer: "10", topic: "Percentages" },
 
-  { id: 41, question: "What is 50% of 80?", options: ["40", "30", "50", "45"], answer: "40" },
-  { id: 42, question: "What is 25% of 100?", options: ["25", "20", "30", "15"], answer: "25" },
-  { id: 43, question: "What is 10% of 50?", options: ["5", "10", "15", "50"], answer: "5" },
-  { id: 44, question: "What is 75% of 60?", options: ["45", "40", "50", "35"], answer: "45" },
-  { id: 45, question: "Convert 0.5 to a percentage", options: ["50%", "5%", "0.5%", "25%"], answer: "50%" },
-  { id: 46, question: "Convert 0.25 to a percentage", options: ["25%", "2.5%", "250%", "0.25%"], answer: "25%" },
-  { id: 47, question: "Convert 75% to a decimal", options: ["0.75", "7.5", "0.075", "75"], answer: "0.75" },
-  { id: 48, question: "Convert 20% to a decimal", options: ["0.2", "2.0", "0.02", "20"], answer: "0.2" },
-  { id: 49, question: "What is 30% of 90?", options: ["27", "30", "25", "33"], answer: "27" },
-  { id: 50, question: "What is 5% of 200?", options: ["10", "5", "15", "20"], answer: "10" },
+            // ALGEBRA (Questions 51-70)
+            { id: 51, question: "Solve: x + 5 = 12", options: ["7", "17", "5", "8"], answer: "7", topic: "Algebra" },
+            { id: 52, question: "Solve: x - 3 = 10", options: ["13", "7", "10", "14"], answer: "13", topic: "Algebra" },
+            { id: 53, question: "Solve: 2x = 16", options: ["8", "32", "14", "18"], answer: "8", topic: "Algebra" },
+            { id: 54, question: "Solve: 3x + 7 = 25", options: ["6", "24", "18", "8"], answer: "6", topic: "Algebra" },
+            { id: 55, question: "Solve: 5x - 8 = 27", options: ["7", "5", "19", "35"], answer: "7", topic: "Algebra" },
+            { id: 56, question: "Solve: 4x + 12 = 3x + 20", options: ["8", "10", "32", "2"], answer: "8", topic: "Algebra" },
+            { id: 57, question: "Solve: 2(x + 3) = 16", options: ["5", "7", "8", "4"], answer: "5", topic: "Algebra" },
+            { id: 58, question: "Solve: 3(x - 2) = 15", options: ["7", "5", "4", "6"], answer: "7", topic: "Algebra" },
+            { id: 59, question: "Solve: 2x² = 50", options: ["5", "25", "10", "7"], answer: "5", topic: "Algebra" },
+            { id: 60, question: "Solve: 3x² = 75", options: ["5", "25", "15", "8"], answer: "5", topic: "Algebra" },
+            { id: 61, question: "Solve: x² + 5 = 21", options: ["4", "8", "16", "2"], answer: "4", topic: "Algebra" },
+            { id: 62, question: "Solve: x² - 11 = 14", options: ["5", "3", "25", "7"], answer: "5", topic: "Algebra" },
+            { id: 63, question: "Solve: 2x³ = 16", options: ["2", "4", "8", "3"], answer: "2", topic: "Algebra" },
+            { id: 64, question: "Solve: x³ + 19 = 46", options: ["3", "9", "27", "6"], answer: "3", topic: "Algebra" },
+            { id: 65, question: "John has 3 times as many marbles as Sarah. John has 24 marbles. If x represents Sarah's marbles, solve: 3x = 24", options: ["8", "21", "27", "72"], answer: "8", topic: "Algebra" },
+            { id: 66, question: "A rectangle's length is x cm and width is 5 cm. The perimeter is 26 cm. Solve: 2(x + 5) = 26", options: ["8", "13", "21", "3"], answer: "8", topic: "Algebra" },
+            { id: 67, question: "Emma's age plus 7 equals 3 times her age minus 5. Solve: x + 7 = 3x - 5", options: ["6", "12", "2", "8"], answer: "6", topic: "Algebra" },
+            { id: 68, question: "A number squared equals 81. Solve: x² = 81", options: ["9", "40.5", "6561", "18"], answer: "9", topic: "Algebra" },
+            { id: 69, question: "Five times a number minus 12 equals 38. Solve: 5x - 12 = 38", options: ["10", "26", "50", "5.2"], answer: "10", topic: "Algebra" },
+            { id: 70, question: "The sum of a number and twice that number equals 21. Solve: x + 2x = 21", options: ["7", "10.5", "14", "21"], answer: "7", topic: "Algebra" },
 
-  { id: 51, question: "Solve: x + 5 = 12", options: ["7", "17", "5", "8"], answer: "7" },
-  { id: 52, question: "Solve: x - 3 = 10", options: ["13", "7", "10", "14"], answer: "13" },
-  { id: 53, question: "Solve: 2x = 16", options: ["8", "32", "14", "18"], answer: "8" },
-  { id: 54, question: "Solve: 3x + 7 = 25", options: ["6", "24", "18", "8"], answer: "6" },
-  { id: 55, question: "Solve: 5x - 8 = 27", options: ["7", "5", "19", "35"], answer: "7" },
-  { id: 56, question: "Solve: 4x + 12 = 3x + 20", options: ["8", "10", "32", "2"], answer: "8" },
-  { id: 57, question: "Solve: 2(x + 3) = 16", options: ["5", "7", "8", "4"], answer: "5" },
-  { id: 58, question: "Solve: 3(x - 2) = 15", options: ["7", "5", "4", "6"], answer: "7" },
-  { id: 59, question: "Solve: 2x² = 50", options: ["5", "25", "10", "7"], answer: "5" },
-  { id: 60, question: "Solve: 3x² = 75", options: ["5", "25", "15", "8"], answer: "5" },
-  { id: 61, question: "Solve: x² + 5 = 21", options: ["4", "8", "16", "2"], answer: "4" },
-  { id: 62, question: "Solve: x² - 11 = 14", options: ["5", "3", "25", "7"], answer: "5" },
-  { id: 63, question: "Solve: 2x³ = 16", options: ["2", "4", "8", "3"], answer: "2" },
-  { id: 64, question: "Solve: x³ + 19 = 46", options: ["3", "9", "27", "6"], answer: "3" },
-  { id: 65, question: "John has 3 times as many marbles as Sarah. John has 24 marbles. Solve: 3x = 24", options: ["8", "21", "27", "72"], answer: "8" },
-  { id: 66, question: "Rectangle perimeter: 2(x + 5) = 26", options: ["8", "13", "21", "3"], answer: "8" },
-  { id: 67, question: "x + 7 = 3x - 5", options: ["6", "12", "2", "8"], answer: "6" },
-  { id: 68, question: "x² = 81", options: ["9", "40.5", "6561", "18"], answer: "9" },
-  { id: 69, question: "5x - 12 = 38", options: ["10", "26", "50", "5.2"], answer: "10" },
-  { id: 70, question: "x + 2x = 21", options: ["7", "10.5", "14", "21"], answer: "7" },
+            // TRIANGLES (Questions 71-85)
+            { id: 71, question: "A triangle with all sides equal is called?", options: ["Equilateral", "Isosceles", "Scalene", "Right"], answer: "Equilateral", topic: "Triangles" },
+            { id: 72, question: "A triangle with two sides equal is called?", options: ["Isosceles", "Equilateral", "Scalene", "Obtuse"], answer: "Isosceles", topic: "Triangles" },
+            { id: 73, question: "A triangle with all sides different is called?", options: ["Scalene", "Isosceles", "Equilateral", "Acute"], answer: "Scalene", topic: "Triangles" },
+            { id: 74, question: "A triangle with a 90° angle is called?", options: ["Right triangle", "Acute triangle", "Obtuse triangle", "Equilateral"], answer: "Right triangle", topic: "Triangles" },
+            { id: 75, question: "The sum of angles in a triangle is?", options: ["180°", "360°", "90°", "270°"], answer: "180°", topic: "Triangles" },
+            { id: 76, question: "In a triangle, if two angles are 60° and 70°, the third angle is?", options: ["50°", "60°", "70°", "40°"], answer: "50°", topic: "Triangles" },
+            { id: 77, question: "In a triangle, if two angles are 45° and 85°, the third angle is?", options: ["50°", "45°", "60°", "55°"], answer: "50°", topic: "Triangles" },
+            { id: 78, question: "In a triangle, if two angles are 30° and 60°, the third angle is?", options: ["90°", "60°", "120°", "80°"], answer: "90°", topic: "Triangles" },
+            { id: 79, question: "In a right triangle, if one angle is 35°, what is the other acute angle?", options: ["55°", "35°", "90°", "45°"], answer: "55°", topic: "Triangles" },
+            { id: 80, question: "In an equilateral triangle, each angle measures?", options: ["60°", "90°", "45°", "120°"], answer: "60°", topic: "Triangles" },
+            { id: 81, question: "A triangle with all angles less than 90° is called?", options: ["Acute triangle", "Right triangle", "Obtuse triangle", "Equilateral"], answer: "Acute triangle", topic: "Triangles" },
+            { id: 82, question: "A triangle with one angle greater than 90° is called?", options: ["Obtuse triangle", "Acute triangle", "Right triangle", "Isosceles"], answer: "Obtuse triangle", topic: "Triangles" },
+            { id: 83, question: "In a triangle, if two angles are 100° and 40°, the third angle is?", options: ["40°", "50°", "60°", "80°"], answer: "40°", topic: "Triangles" },
+            { id: 84, question: "In a triangle, if two angles are 75° and 75°, the third angle is?", options: ["30°", "60°", "45°", "75°"], answer: "30°", topic: "Triangles" },
+            { id: 85, question: "In a right triangle, if one angle is 60°, what is the other acute angle?", options: ["30°", "60°", "45°", "90°"], answer: "30°", topic: "Triangles" },
 
-  { id: 71, question: "A triangle with all sides equal is called?", options: ["Equilateral", "Isosceles", "Scalene", "Right"], answer: "Equilateral" },
-  { id: 72, question: "A triangle with two sides equal is called?", options: ["Isosceles", "Equilateral", "Scalene", "Obtuse"], answer: "Isosceles" },
-  { id: 73, question: "A triangle with all sides different is called?", options: ["Scalene", "Isosceles", "Equilateral", "Acute"], answer: "Scalene" },
-  { id: 74, question: "A triangle with a 90° angle is called?", options: ["Right triangle", "Acute triangle", "Obtuse triangle", "Equilateral"], answer: "Right triangle" },
-  { id: 75, question: "The sum of angles in a triangle is?", options: ["180°", "360°", "90°", "270°"], answer: "180°" },
-  { id: 76, question: "Angles 60° and 70° → third angle?", options: ["50°", "60°", "70°", "40°"], answer: "50°" },
-  { id: 77, question: "Angles 45° and 85° → third angle?", options: ["50°", "45°", "60°", "55°"], answer: "50°" },
-  { id: 78, question: "Angles 30° and 60° → third angle?", options: ["90°", "60°", "120°", "80°"], answer: "90°" },
-  { id: 79, question: "Right triangle: one angle is 35° → other acute angle?", options: ["55°", "35°", "90°", "45°"], answer: "55°" },
-  { id: 80, question: "Each angle in an equilateral triangle?", options: ["60°", "90°", "45°", "120°"], answer: "60°" },
-  { id: 81, question: "Triangle with all angles < 90° is called?", options: ["Acute triangle", "Right triangle", "Obtuse triangle", "Equilateral"], answer: "Acute triangle" }
-];
+            // ANGLES (Questions 86-100)
+            { id: 86, question: "An angle less than 90° is called?", options: ["Acute", "Obtuse", "Right", "Reflex"], answer: "Acute", topic: "Angles" },
+            { id: 87, question: "An angle equal to 90° is called?", options: ["Right", "Acute", "Obtuse", "Straight"], answer: "Right", topic: "Angles" },
+            { id: 88, question: "An angle greater than 90° but less than 180° is called?", options: ["Obtuse", "Acute", "Right", "Reflex"], answer: "Obtuse", topic: "Angles" },
+            { id: 89, question: "An angle equal to 180° is called?", options: ["Straight", "Right", "Obtuse", "Reflex"], answer: "Straight", topic: "Angles" },
+            { id: 90, question: "Angles around a point add up to?", options: ["360°", "180°", "90°", "270°"], answer: "360°", topic: "Angles" },
+            { id: 91, question: "Angles on a straight line add up to?", options: ["180°", "90°", "360°", "270°"], answer: "180°", topic: "Angles" },
+            { id: 92, question: "If one angle on a straight line is 70°, the adjacent angle is?", options: ["110°", "70°", "20°", "290°"], answer: "110°", topic: "Angles" },
+            { id: 93, question: "If one angle on a straight line is 125°, the adjacent angle is?", options: ["55°", "125°", "235°", "65°"], answer: "55°", topic: "Angles" },
+            { id: 94, question: "When two parallel lines are cut by a transversal, corresponding angles are?", options: ["Equal", "Add to 180°", "Add to 90°", "Different"], answer: "Equal", topic: "Angles" },
+            { id: 95, question: "When two parallel lines are cut by a transversal, alternate interior angles are?", options: ["Equal", "Add to 180°", "Add to 90°", "Different"], answer: "Equal", topic: "Angles" },
+            { id: 96, question: "When two parallel lines are cut by a transversal, co-interior angles add up to?", options: ["180°", "90°", "360°", "They are equal"], answer: "180°", topic: "Angles" },
+            { id: 97, question: "Vertically opposite angles are?", options: ["Equal", "Add to 180°", "Add to 90°", "Different"], answer: "Equal", topic: "Angles" },
+            { id: 98, question: "If a corresponding angle is 65° when parallel lines are cut by a transversal, what is its corresponding angle?", options: ["65°", "115°", "25°", "90°"], answer: "65°", topic: "Angles" },
+            { id: 99, question: "If an alternate angle is 48° when parallel lines are cut by a transversal, what is the other alternate angle?", options: ["48°", "132°", "42°", "90°"], answer: "48°", topic: "Angles" },
+            { id: 100, question: "If a co-interior angle is 72° when parallel lines are cut by a transversal, what is the other co-interior angle?", options: ["108°", "72°", "18°", "288°"], answer: "108°", topic: "Angles" },
+        ];
 
-function loadQuiz() {
-  const container = document.getElementById("quiz");
-  container.innerHTML = "";
+        const topics = ["Fractions", "Decimals", "Percentages", "Algebra", "Triangles", "Angles"];
+        let answers = {};
+        let submitted = false;
+        let score = 0;
 
-  questions.forEach(q => {
-    const div = document.createElement("div");
-    div.className = "question";
+        function getTopicQuestions(topic) {
+            return questions.filter(q => q.topic === topic);
+        }
 
-    div.innerHTML = `
-      <p><strong>${q.id}. ${q.question}</strong></p>
-      ${q.options.map(opt => `
-        <label>
-          <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
-        </label><br>
-      `).join("")}
-      <p id="result-${q.id}"></p>
-    `;
+        function handleAnswer(questionId, selectedAnswer) {
+            if (!submitted) {
+                answers[questionId] = selectedAnswer;
+                render();
+            }
+        }
 
-    container.appendChild(div);
-  });
-}
+        function handleSubmit() {
+            let correct = 0;
+            questions.forEach(q => {
+                if (answers[q.id] === q.answer) correct++;
+            });
+            score = correct;
+            submitted = true;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            render();
+        }
 
-function checkAnswers() {
-  questions.forEach(q => {
-    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-    const result = document.getElementById(`result-${q.id}`);
+        function handleReset() {
+            answers = {};
+            submitted = false;
+            score = 0;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            render();
+        }
 
-    if (!selected) {
-      result.textContent = "No answer selected";
-      result.className = "incorrect";
-      return;
-    }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
-    if (selected.value === q.answer) {
-      result.textContent = "✔ Correct";
-      result.className = "correct";
-    } else {
-      result.textContent = `✘ Incorrect (Correct: ${q.answer})`;
-      result.className = "incorrect";
-    }
-  });
-}
+        function render() {
+            const app = document.getElementById('app');
+            
+            let html = `
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl md:text-4xl font-bold text-indigo-900 mb-2">
+                        Year 1 High School Maths Practice Test
+                    </h1>
+                    <p class="text-gray-600">100 Questions - Complete all sections</p>
+                </div>
+            `;
 
-function resetQuiz() {
-  document.querySelectorAll("input[type=radio]").forEach(el => el.checked = false);
-  document.querySelectorAll("[id^='result-']").forEach(el => el.textContent = "");
-}
+            if (submitted) {
+                const percentage = ((score/100)*100).toFixed(1);
+                let message = "";
+                if (score >= 90) message = "Excellent work! Outstanding performance!";
+                else if (score >= 75) message = "Great job! You've done very well!";
+                else if (score >= 50) message = "Good effort! Keep practicing to improve!";
+                else message = "Keep working hard! Review the topics and try again.";
 
-loadQuiz();
-</script>
+                html += `
+                    <div class="mb-8 p-6 gradient-result text-white rounded-lg shadow-lg">
+                        <h2 class="text-2xl font-bold mb-2">Test Complete!</h2>
+                        <p class="text-3xl font-bold mb-2">Score: ${score}/100 (${percentage}%)</p>
+                        <p class="mb-4">${message}</p>
+                        <button onclick="handleReset()" class="flex items-center gap-2 bg-white text-indigo-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+                            Retake Test
+                        </button>
+                    </div>
+                `;
+            }
 
+            topics.forEach(topic => {
+                const topicQuestions = getTopicQuestions(topic);
+                html += `
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-indigo-800 mb-4 pb-2 border-b-2 border-indigo-200">
+                            ${topic}
+                        </h2>
+                `;
+
+                topicQuestions.forEach(q => {
+                    const isAnswered = answers[q.id] !== undefined;
+                    const isCorrect = answers[q.id] === q.answer;
+                    
+                    html += `
+                        <div class="mb-6 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                            <div class="flex items-start gap-3 mb-3">
+                                <span class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                    ${q.id}
+                                </span>
+                                <p class="font-semibold text-gray-800 flex-1 pt-1">${escapeHtml(q.question)}</p>
+                    `;
+                    
+                    if (submitted) {
+                        if (isCorrect) {
+                            html += `<svg class="flex-shrink-0 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+                        } else {
+                            html += `<svg class="flex-shrink-0 text-red-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+                        }
+                    }
+                    
+                    html += `
+                            </div>
+                            <div class="ml-11 space-y-2">
+                    `;
+
+                    q.options.forEach((option, idx) => {
+                        const isSelected = answers[q.id] === option;
+                        const optionIsCorrect = q.answer === option;
+                        const showCorrect = submitted && optionIsCorrect;
+                        const showIncorrect = submitted && isSelected && !optionIsCorrect;
+                        
+                        let classes = "flex items-center p-3 rounded-lg transition ";
+                        if (submitted) {
+                            classes += "cursor-default ";
+                        } else {
+                            classes += "cursor-pointer hover:bg-indigo-50 ";
+                        }
+                        
+                        if (showCorrect) {
+                            classes += "bg-green-100 border-2 border-green-500";
+                        } else if (showIncorrect) {
+                            classes += "bg-red-100 border-2 border-red-500";
+                        } else if (isSelected) {
+                            classes += "bg-indigo-100 border-2 border-indigo-500";
+                        } else {
+                            classes += "bg-white border-2 border-gray-200";
+                        }
+
+                        let textClass = "";
+                        if (showCorrect) textClass = "font-bold text-green-800";
+                        else if (showIncorrect) textClass = "font-bold text-red-800";
+                        else textClass = "text-gray-700";
+
+                        html += `
+                            <label class="${classes}" onclick="${submitted ? '' : `handleAnswer(${q.id}, '${escapeHtml(option)}')`}">
+                                <input type="radio" name="question-${q.id}" value="${escapeHtml(option)}" ${isSelected ? 'checked' : ''} ${submitted ? 'disabled' : ''} class="mr-3">
+                                <span class="${textClass}">${escapeHtml(option)}</span>
+                            </label>
+                        `;
+                    });
+
+                    html += `</div>`;
+
+                    if (submitted && !isCorrect) {
+                        html += `
+                            <div class="ml-11 mt-2 text-sm text-gray-600">
+                                Correct answer: <span class="font-bold text-green-700">${escapeHtml(q.answer)}</span>
+                            </div>
+                        `;
+                    }
+
+                    html += `</div>`;
+                });
+
+                html += `</div>`;
+            });
+
+            if (!submitted) {
+                html += `
+                    <div class="text-center mt-8">
+                        <button onclick="handleSubmit()" class="gradient-button text-white px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg">
+                            Submit Test
+                        </button>
+                    </div>
+                `;
+            }
+
+            app.innerHTML = html;
+        }
+
+        // Initial render
+        render();
+    </script>
 </body>
 </html>
